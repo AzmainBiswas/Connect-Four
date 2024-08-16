@@ -1,5 +1,6 @@
 from game_constants import *
 
+
 class CalculateWins:
     def __init__(self) -> None:
         self.__is_win = False
@@ -11,7 +12,9 @@ class CalculateWins:
         """
         return self.__is_win
 
-    def __vertical_win(self,columns: list[list[int]], column_number :int, top_indeces: list[int]) -> GamePlayers:
+    def __vertical_win(
+        self, columns: list[list[int]], column_number: int, top_indeces: list[int]
+    ) -> GamePlayers:
         """
         Calculate the vertical win
 
@@ -25,7 +28,7 @@ class CalculateWins:
         Who win
         """
         if top_indeces[column_number] < WIN_COMBO_NUMBER - 1:
-            return GamePlayers.Empty # if top index is less then 3 win can't happen
+            return GamePlayers.Empty  # if top index is less then 3 win can't happen
 
         row = top_indeces[column_number]
         count = 1
@@ -42,9 +45,10 @@ class CalculateWins:
             return GamePlayers(columns[column_number][top_indeces[column_number]])
         else:
             return GamePlayers.Empty
-        
 
-    def __horizontal_win(self, columns: list[list[int]], column_number :int, top_indeces :list[int]) -> GamePlayers:
+    def __horizontal_win(
+        self, columns: list[list[int]], column_number: int, top_indeces: list[int]
+    ) -> GamePlayers:
         """
         Calculate the horizontal win
 
@@ -70,7 +74,7 @@ class CalculateWins:
                 left_index -= 1
             else:
                 break
-        
+
         # check ->
         while right_index < NUMBER_OF_COLUMNS - 1:
             if columns[right_index][row] == columns[right_index + 1][row]:
@@ -85,7 +89,9 @@ class CalculateWins:
         else:
             return GamePlayers.Empty
 
-    def win(self, columns: list[list[int]], column_number :int, top_indeces :list[int]) -> GamePlayers:
+    def win(
+        self, columns: list[list[int]], column_number: int, top_indeces: list[int]
+    ) -> GamePlayers:
         """
         Calculate win
 
@@ -98,9 +104,9 @@ class CalculateWins:
         Return:
         Who win
         """
-        who_win :GamePlayers = self.__vertical_win(columns, column_number, top_indeces)
-        
+        who_win: GamePlayers = self.__vertical_win(columns, column_number, top_indeces)
+
         if not self.__is_win:
             who_win = self.__horizontal_win(columns, column_number, top_indeces)
-        
+
         return who_win
